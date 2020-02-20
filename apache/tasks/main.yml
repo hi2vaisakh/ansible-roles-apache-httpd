@@ -1,0 +1,23 @@
+---
+- name: Install httpd
+  yum:
+    name: httpd
+    state: latest
+
+- name: Create site directories
+  file:
+    path: "{{item}}"
+    state: directory
+  with_items: "{{apache_dirs}}"
+
+- name: Copy index.html
+  template: src=index.html.j2 dest={{apache_docroot}}/index.html
+
+- name: Copy httpd conf
+  template: src=httpd.conf-{{ansible_os_family}}.j2 dest={{apache_conf}}/httpd.conf
+  notify: restart httpd
+
+- name: ensure that httpd is started
+  service:
+    name: httpd
+    state: started

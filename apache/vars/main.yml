@@ -1,0 +1,11 @@
+---
+httpd_port: 80
+apache_docroot: /var/www/html
+apache_conf: /etc/httpd/conf
+sites_available: /etc/httpd/conf/sites_available
+sites_enabled: /etc/httpd/conf/sites_enabled
+apache_dirs:
+- "{{ sites_available }}"
+- "{{ sites_enabled }}"
+apache_test_message: "Hello Vaisakh"
+apache_max_keep_alive_requests: 30
